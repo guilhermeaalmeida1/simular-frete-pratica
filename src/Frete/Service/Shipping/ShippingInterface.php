@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Frete\Service\Correios;
+namespace src\Frete\Service\Shipping;
 
 interface ShippingInterface
 {

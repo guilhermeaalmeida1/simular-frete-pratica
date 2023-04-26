@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Frete\Service\Correios;
+namespace src\Frete\Service\Shipping;
 
 class ShippingStrategy
 {
@@ -14,7 +14,6 @@ class ShippingStrategy
 
     public function calculaFrete()
     {
-        $this->typeOfShipping->calculaFrete();
-        return 1;
+        return $this->typeOfShipping->calculaFrete();
     }
 }

@@ -3,22 +3,23 @@
 namespace Tests\Frete\Service\Correios;
 
 use PHPUnit\Framework\Attributes\CoversClass;
-use src\Frete\Service\Correios\CorreiosInterface;
+use src\Frete\Service\Shipping\ShippingInterface;
+use src\Frete\Service\Shipping\ShippingStrategy;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(CorreiosInterface::class)]
+#[CoversClass(ShippingInterface::class)]
 class CorreiosInterfaceTest extends TestCase
 {
 
     public function testInterfaceExiste()
     {
-        $rr = $this->createMock(CorreiosInterface::class);
+        $rr = $this->createMock(ShippingInterface::class);
 
-        $this->assertInstanceOf(CorreiosInterface::class, $rr);
+        $this->assertInstanceOf(ShippingStrategy::class, $rr);
     }
 
     public function testFuncaInterfaceExiste()
     {
-        $this->assertTrue(method_exists(CorreiosInterface::class, 'calculaFrete'));
+        $this->assertTrue(method_exists(ShippingInterface::class, 'calculaFrete'));
     }
 }

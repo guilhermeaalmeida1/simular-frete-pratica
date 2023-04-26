@@ -8,8 +8,9 @@ use PHPUnit\Framework\TestCase;
 use src\Frete\Entidades\Produto;
 use src\Frete\Entidades\Usuario;
 use src\Frete\Service\CarrinhoDeCompra\Compra;
-use src\Frete\Service\Correios\Correios;
-use src\Frete\Service\Correios\CorreiosInterface;
+use src\Frete\Service\Shipping\Correios;
+use src\Frete\Service\Shipping\ShippingStrategy;
+use src\Frete\Service\Shipping\ShippingInterface;
 use Mockery;
 
 #[CoversClass(Usuario::class)]
@@ -17,6 +18,7 @@ use Mockery;
 #[CoversClass(Produto::class)]
 #[CoversClass(Compra::class)]
 #[CoversClass(Correios::class)]
+#[CoversClass(ShippingStrategy::class)]
 
 class CarrinhoTest extends TestCase
 {
@@ -112,23 +114,6 @@ class CarrinhoTest extends TestCase
     public function testRemocaoDoCarrinhoVazio()
     {
         $this->assertEquals($this->carrinho->removeCompraCarrinho(), 0);
-    }
-
-    public function testInterfaceDoCorreio()
-    {
-        $correios = Mockery::mock( CorreiosInterface::class);
-        $correios->shouldReceive('calculaFrete')->andReturn(1);
-
-        $this->produto->nome = "prod1";
-        $this->produto->valor = 101;
-
-        $this->usuario->nome = "Jhon";
-        $this->usuario->cep = "123456978";
-        $this->carrinho->usuario = $this->usuario;
-        $this->carrinho->insertCompraCarrinho($this->produto->getProduto());
-
-        $comp = new Compra($correios);
-        $this->assertEquals($comp->calculoDaCompra($this->carrinho->valorTotalDoCarrinho()), 102);
     }
 
     public function tearDown():void

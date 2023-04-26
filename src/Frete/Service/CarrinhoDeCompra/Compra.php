@@ -2,20 +2,22 @@
 
 namespace src\Frete\Service\CarrinhoDeCompra;
 
-use src\Frete\Service\Correios\CorreiosInterface;
+use src\Frete\Entidades\Usuario;
+use src\Frete\Service\Shipping\ShippingInterface;
+
 
 class Compra
 {
 
-    public function __construct(private CorreiosInterface $correios)
+    public function __construct(private ShippingInterface $correios)
     {
     }
 
     public function calculoDaCompra($valorDaCompra)
     {
         if ($valorDaCompra <= 100) {
-            return $valorDaCompra;
+            return $this->correios->calculaFrete() + $valorDaCompra;
         }
-        return $this->correios->calculaFrete() + $valorDaCompra;
+        return $valorDaCompra;
     }
 }
