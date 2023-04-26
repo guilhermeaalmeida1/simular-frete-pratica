@@ -1,0 +1,107 @@
+Escaped mutants:
+================
+
+1) /var/www/src/Frete/Entidades/Carrinho.php:58    [M] Identical
+
+--- Original
++++ New
+@@ @@
+             return 0;
+         }
+         foreach ($this->listaDeProdutos as $key => $listaDeProduto) {
+-            if ($produto['nome'] === $listaDeProduto['nome']) {
++            if ($produto['nome'] !== $listaDeProduto['nome']) {
+                 unset($this->listaDeProdutos[$key]);
+             }
+         }
+     }
+ }
+
+
+2) /var/www/src/Frete/Service/CarrinhoDeCompra/Compra.php:16    [M] LessThanOrEqualTo
+
+--- Original
++++ New
+@@ @@
+     }
+     public function calculoDaCompra($valorDaCompra)
+     {
+-        if ($valorDaCompra <= 100) {
++        if ($valorDaCompra < 100) {
+             return $valorDaCompra;
+         }
+         return $this->correios->calculaFrete() + $valorDaCompra;
+     }
+ }
+
+
+Timed Out mutants:
+==================
+
+Skipped mutants:
+================
+
+Not Covered mutants:
+====================
+
+1) /var/www/src/Frete/DIConfig.php:12    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+ use src\Frete\Service\Correios\CorreiosInterface;
+ class DIConfig
+ {
+-    public function build()
++    protected function build()
+     {
+         $builder = new ContainerBuilder();
+         $builder->addDefinitions([CorreiosInterface::class => function ($container) {
+
+
+2) /var/www/src/Frete/DIConfig.php:15    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     public function build()
+     {
+         $builder = new ContainerBuilder();
+-        $builder->addDefinitions([CorreiosInterface::class => function ($container) {
+-            return $container->get(Correios::class);
+-        }]);
++        $builder->addDefinitions([]);
+         $builder->build();
+     }
+ }
+
+
+3) /var/www/src/Frete/DIConfig.php:15    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function build()
+     {
+         $builder = new ContainerBuilder();
+-        $builder->addDefinitions([CorreiosInterface::class => function ($container) {
+-            return $container->get(Correios::class);
+-        }]);
++        
+         $builder->build();
+     }
+ }
+
+
+4) /var/www/src/Frete/DIConfig.php:21    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $builder->addDefinitions([CorreiosInterface::class => function ($container) {
+             return $container->get(Correios::class);
+         }]);
+-        $builder->build();
++        
+     }
+ }

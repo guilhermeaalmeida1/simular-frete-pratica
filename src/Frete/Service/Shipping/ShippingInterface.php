@@ -2,7 +2,7 @@
 
 namespace src\Frete\Service\Correios;
 
-interface CorreiosInterface
+interface ShippingInterface
 {
     public function calculaFrete();
 }
