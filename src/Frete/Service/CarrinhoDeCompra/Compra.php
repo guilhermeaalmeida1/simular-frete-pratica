@@ -2,7 +2,7 @@
 
 namespace src\Frete\Service\CarrinhoDeCompra;
 
-use src\Frete\Entidades\Usuario;
+use src\Frete\Entity\User;
 use src\Frete\Service\Shipping\ShippingInterface;
 
 

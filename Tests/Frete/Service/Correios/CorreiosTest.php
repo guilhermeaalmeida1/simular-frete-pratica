@@ -4,24 +4,25 @@ namespace Tests\Frete\Service\Correios;
 
 use Mockery;
 use PHPUnit\Framework\Attributes\CoversClass;
-use src\Frete\Entidades\Carrinho;
-use src\Frete\Entidades\Produto;
-use src\Frete\Entidades\Usuario;
+use src\Frete\Entity\Cart;
+use src\Frete\Entity\Product;
+use src\Frete\Entity\User;
 use src\Frete\Service\Shipping\Correios;
 use src\Frete\Service\Shipping\ShippingInterface;
 use src\Frete\Service\Shipping\ShippingStrategy;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Correios::class)]
+#[CoversClass(ShippingStrategy::class)]
 class CorreiosTest extends TestCase
 {
     protected function setUp():void
     {
-        $this->usuario = new Usuario();
+        $this->usuario = new User();
 
-        $this->carrinho = new Carrinho();
+        $this->carrinho = new Cart();
 
-        $this->produto = new Produto();
+        $this->produto = new Product();
     }
 
     public function testFrete()
@@ -32,11 +33,11 @@ class CorreiosTest extends TestCase
 
     public function testValorDoFrete()
     {
-        $this->usuario->nome = "Jhon";
-        $this->usuario->cep = "123456978";
+        $this->usuario->name = "Jhon";
+        $this->usuario->zipCode = "123456978";
 
         $correios = new Correios();
-        $correios->definiCriterioDeEntrega($this->usuario->cep, 123);
+        $correios->definiCriterioDeEntrega($this->usuario->zipCode, 123);
 
 
         $valor = Mockery::mock(ShippingInterface::class)
@@ -52,16 +53,16 @@ class CorreiosTest extends TestCase
 
     public function atestCompraSemFrete()
     {
-        $this->produto->nome = "prod1";
-        $this->produto->valor = 10;
+        $this->produto->name = "prod1";
+        $this->produto->price = 10;
 
-        $this->usuario->nome = "Jhon";
-        $this->usuario->cep = "123456978";
-        $this->carrinho->usuario = $this->usuario;
+        $this->usuario->name = "Jhon";
+        $this->usuario->zipCode = "123456978";
+        $this->carrinho->user = $this->usuario;
         $this->carrinho->insertCompraCarrinho($this->produto->getProduto());
 
         $correios = new Correios();
-        $correios->definiCriterioDeEntrega($this->usuario->cep, 123);
+        $correios->definiCriterioDeEntrega($this->usuario->zipCode, 123);
 
 
         $valor = Mockery::mock(ShippingInterface::class)

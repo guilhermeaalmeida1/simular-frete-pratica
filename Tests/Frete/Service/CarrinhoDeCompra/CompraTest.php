@@ -15,14 +15,14 @@ use src\Frete\Service\Shipping\ShippingStrategy;
 #[CoversClass(Compra::class)]
 class CompraTest extends TestCase
 {
-    public function testCompraSemFrete()
+    public function testBuyngWithoutShipping()
     {
         $shipp = Mockery::mock(ShippingInterface::class);
 
         $this->assertEquals((new Compra($shipp))->calculoDaCompra(101), 101);
     }
 
-    public function testCompraComFrete()
+    public function testBuyngWithShipping()
     {
         $shipp = Mockery::mock(ShippingInterface::class)
             ->shouldReceive('calculaFrete')

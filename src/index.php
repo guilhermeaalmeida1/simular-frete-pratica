@@ -1,26 +1,26 @@
 <?php
 
-use src\Frete\Entidades\Carrinho;
-use src\Frete\Entidades\Produto;
-use src\Frete\Entidades\Usuario;
+use src\Frete\Entity\Cart;
+use src\Frete\Entity\Product;
+use src\Frete\Entity\User;
 use src\Frete\Service\CarrinhoDeCompra\Compra;
 use src\Frete\Service\Shipping\Correios;
 use src\Frete\Service\Shipping\ShippingStrategy;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$produto = new Produto();
-$produto->nome = "prod1";
-$produto->valor = 101;
+$produto = new Product();
+$produto->name = "prod1";
+$produto->price = 101;
 
-$usuario = new Usuario();
-$usuario->nome = "Jhon";
-$usuario->cep = "123456978";
+$usuario = new User();
+$usuario->name = "Jhon";
+$usuario->zipCode = "123456978";
 
-$carrinho = new Carrinho();
-$carrinho->usuario = $usuario;
+$carrinho = new Cart();
+$carrinho->user = $usuario;
 $carrinho->insertCompraCarrinho($produto->getProduto());
-$valor = $carrinho->valorTotalDoCarrinho();
+$valor = $carrinho->totalPrice();
 
 $correios = new Correios();
 
